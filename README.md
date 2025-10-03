@@ -1,4 +1,4 @@
 - docker compose up --build
 - docker compose exec php-fpm php artisan migrate
 - docker compose exec php-fpm sh
-     composer install
+- composer install
