@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+
+class WebUser extends Model
+{
+    use HasFactory;
+
+    // Tên bảng, nếu không Laravel sẽ tự hiểu là "web_users"
+    protected $table = 'web_users';
+
+    // Các field có thể gán giá trị hàng loạt
+    protected $fillable = [
+        'full_name',
+        'username',
+        'password',
+        'email',
+        'sdt',
+        'address',
+        'sex',
+        'is_active',
+        'role_id'
+    ];
+
+    // Các field sẽ bị ẩn khi trả về JSON
+    protected $hidden = [
+        'password'
+    ];
+
+    // Ép kiểu dữ liệu
+    protected $casts = [
+        'sex' => 'boolean',
+        'is_active' => 'boolean',
+    ];
+
+    // Mutator để tự động hash password khi tạo hoặc cập nhật
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    // Relationship: một user thuộc về một role
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+}
