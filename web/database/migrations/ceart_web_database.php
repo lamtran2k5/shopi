@@ -26,13 +26,13 @@ return new class extends Migration{
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
+            $table->string('full_name')->nullable();
             $table->string('username')->unique();
             $table->string('password');
             $table->string('email');
-            $table->string('sdt');
-            $table->string('address');
-            $table->boolean('sex');
+            $table->string('sdt')->nullable();
+            $table->string('address')->nullable();
+            $table->boolean('sex')->nullable();
             $table->boolean('is_active')->default(true);
             $table->unsignedBigInteger('role_id'); // khóa ngoại
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');

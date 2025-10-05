@@ -28,6 +28,35 @@ class AuthController extends Controller
             return redirect()->route('home.index');
         }
 
-        return response("Thông tin đăng nhập không hợp lệ.", 401);
+        return back()->with('error', 'Error username or password'); 
+    }
+
+    // Hiển thị form đưang ký
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Xử lý đăng ký
+    public function register(Request $request)
+    {
+        if ($request->role == 1) {
+            return back()->with('error', 'Hack detected'); 
+        }
+        
+        // Kiểm tra username đã tồn tại chưa
+        $exists = User::where('username', $request->username)->exists();
+        if($exists){
+            return back()->with('error', 'Username exists!');
+        }
+        // Tạo user mới
+        $user = new User();
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->role_id = $request->role;
+        $user->password = $request->password;
+        $user->save();
+
+        return redirect()->route('login.form');
     }
 }
