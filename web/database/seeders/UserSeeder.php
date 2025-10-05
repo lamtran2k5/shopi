@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\WebUser;
+use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
-class WebUserSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run()
     {
@@ -22,11 +22,11 @@ class WebUserSeeder extends Seeder
         }
 
         // Tạo Admin
-        WebUser::firstOrCreate(
+        User::updateOrCreate(
             ['username' => 'admin'],
             [
                 'full_name' => 'Administrator',
-                'password'  => Hash::make('change@me'),
+                'password'  => 'change@me',
                 'email'     => 'admin@example.com',
                 'sdt'       => '0123456789',
                 'address'   => 'Hanoi, Vietnam',
@@ -37,11 +37,11 @@ class WebUserSeeder extends Seeder
         );
 
         // Tạo Shop
-        WebUser::firstOrCreate(
+        User::updateOrCreate(
             ['username' => 'shop1'],
             [
                 'full_name' => 'Shop User',
-                'password'  => Hash::make('shop@me'),
+                'password'  => 'shop@me',
                 'email'     => 'shop@example.com',
                 'sdt'       => '0987654321',
                 'address'   => 'HCM, Vietnam',
@@ -52,11 +52,11 @@ class WebUserSeeder extends Seeder
         );
 
         // Tạo 2 user bình thường
-        WebUser::firstOrCreate(
+        User::updateOrCreate(
             ['username' => 'user1'],
             [
                 'full_name' => 'Normal User 1',
-                'password'  => Hash::make('user@me'),
+                'password'  => 'user@me',
                 'email'     => 'user1@example.com',
                 'sdt'       => '0123987654',
                 'address'   => 'Da Nang, Vietnam',
@@ -66,11 +66,11 @@ class WebUserSeeder extends Seeder
             ]
         );
 
-        WebUser::firstOrCreate(
+        User::updateOrCreate(
             ['username' => 'user2'],
             [
                 'full_name' => 'Normal User 2',
-                'password'  => Hash::make('user@me'),
+                'password'  => 'user@me',
                 'email'     => 'user2@example.com',
                 'sdt'       => '0987123456',
                 'address'   => 'Hai Phong, Vietnam',

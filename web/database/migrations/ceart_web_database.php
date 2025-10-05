@@ -24,7 +24,7 @@ return new class extends Migration{
             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
         });
 
-        Schema::create('web_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
             $table->string('username')->unique();

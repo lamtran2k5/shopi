@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
         // Gọi các seeder khác theo thứ tự mong muốn
         $this->call([
             RolesTableSeeder::class,
-            WebUserSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }

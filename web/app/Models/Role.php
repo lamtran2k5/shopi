@@ -22,7 +22,7 @@ class Role extends Model
     // Relationship: một role có nhiều user
     public function users()
     {
-        return $this->hasMany(WebUser::class);
+        return $this->hasMany(User::class);
     }
 
     // Relationship: một role có nhiều permission qua bảng trung gian role_permission

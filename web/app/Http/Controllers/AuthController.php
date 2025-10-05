@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User; // nhớ import model User
+
 class AuthController extends Controller
 {
     // Hiển thị form login
@@ -10,29 +13,21 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-// Xử lý login
+    // Xử lý đăng nhập
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        // Lấy user từ DB theo username
+        $user = User::where('username', $request->username)->first();
 
-        // Lấy user từ DB
-        $user = DB::table('users')->where('username', $request->username)->first();
+        // Kiểm tra user tồn tại và mật khẩu đúng
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Lưu user id vào session
+            $request->session()->put('user_id', $user->id);
+            $request->session()->put('username', $user->username);
 
-        if ($user) {
-            // So sánh mật khẩu (giả sử DB lưu hash md5)
-            if (md5($request->password) === $user->password_hash) {
-                // Lưu session đơn giản
-                session(['user_id' => $user->id, 'username' => $user->username]);
-
-                return redirect('/'); // Chuyển hướng về trang chính
-            } else {
-                return back()->withErrors(['password' => 'Sai mật khẩu']);
-            }
-        } else {
-            return back()->withErrors(['username' => 'Không tìm thấy tài khoản']);
+            return redirect()->route('home.index');
         }
+
+        return response("Thông tin đăng nhập không hợp lệ.", 401);
     }
 }
