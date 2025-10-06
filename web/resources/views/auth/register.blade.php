@@ -29,10 +29,10 @@
                 </div>
 
                 <div>
-                    <input type="radio" id="user" name="role" value=2>
+                    <input type="radio" id="user" name="role" value=2 required>
                     <label for="user">User</label>
 
-                    <input type="radio" id="shop" name="role" value=3>
+                    <input type="radio" id="shop" name="role" value=3 required>
                     <label for="shop">Shop</label>
                 </div>
                 @if(session('error'))

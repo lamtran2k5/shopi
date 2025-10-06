@@ -23,7 +23,6 @@ class User extends Model
         'address',
         'sex',
         'is_active',
-        'role_id'
     ];
 
     // Các field sẽ bị ẩn khi trả về JSON

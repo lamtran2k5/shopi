@@ -18,11 +18,11 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    'driver' => env('SESSION_DRIVER', 'redis'),
 
-    /*
-    |--------------------------------------------------------------------------
+    /*---------
     | Session Lifetime
+    |-----------------------------------------------------------------
     |--------------------------------------------------------------------------
     |
     | Here you may specify the number of minutes that you wish the session

@@ -7,28 +7,32 @@ use Illuminate\Support\Facades\Auth;
 class AccountController extends Controller
 {
     public function index(Request $request)
-    {
-        $viewData = [];
-        $viewData["title"] = "Account";
-        $option = $request->query('option', 'a'); // mặc định 'a' nếu không truyền
-        $content = "";
-        $user = Auth::user(); 
+    {       
+        $option = $request->query('option', '1');
         switch ($option) {
-            case 'a':
-                $content = view('account.info', compact('user'))->render();
+            case '1':
+                $contentView = 'account.account';
                 break;
-            case 'b':
-                $content = view('account.address'); 
+            case '2':
+                $contentView = 'account.info'; 
                 break;
-            case 'c':
-                $content = view('account.forgetPasswd'); 
+            case '3':
+                $contentView = 'account.forgetPasswd'; 
                 break;
-            case 'd':
-                $content = view('account.orderHistory'); 
+            case '4':
+                $contentView = 'account.address'; 
                 break; 
+            case '5':
+                $contentView = 'account.orderHistory'; 
+                break;
             default:
-                return "Trang không tồn tại!";
+                abort(404);
         }
-        return view('home.account', ['activeOption' => $option,'content' => $content,'viewData' => $viewData,]);
+        $viewData = [
+            'title' => 'Account',
+            'contentView' => $contentView,
+            'activeOption' => $option
+        ];
+        return view('home.account', $viewData);
     }
 }

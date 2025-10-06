@@ -12,7 +12,6 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-
     // Xử lý đăng nhập
     public function login(Request $request)
     {
@@ -24,10 +23,8 @@ class AuthController extends Controller
             // Lưu user id vào session
             $request->session()->put('user_id', $user->id);
             $request->session()->put('username', $user->username);
-
             return redirect()->route('home.index');
         }
-
         return back()->with('error', 'Error username or password'); 
     }
 
@@ -36,25 +33,24 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
-
     // Xử lý đăng ký
     public function register(Request $request)
     {
-        if ($request->role == 1) {
-            return back()->with('error', 'Hack detected'); 
-        }
-        
+        $user = new User();
         // Kiểm tra username đã tồn tại chưa
         $exists = User::where('username', $request->username)->exists();
         if($exists){
             return back()->with('error', 'Username exists!');
+        }elseif ($request->role == 1) {
+            return back()->with('error', 'Hack detected'); 
+        }else{
+            $user -> role_id = $request->role;
         }
-        // Tạo user mới
-        $user = new User();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->role_id = $request->role;
-        $user->password = $request->password;
+        $user->fill([
+            'username' => $request->username,
+            'email'    => $request->email,
+            'password' => $request->password,
+        ]);
         $user->save();
 
         return redirect()->route('login.form');

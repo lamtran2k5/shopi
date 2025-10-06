@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccountController;
+use App\Http\Middleware\Authenticate;
 
 // Trang Home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -16,9 +17,5 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 // Account
-Route::get('/account', [AccountController::class, 'index'])->name('home.account');
-Route::get('/account/info', [AccountController::class, 'info'])->name('account.info');
-Route::get('/account/address', [AccountController::class, 'address'])->name('account.address');
-Route::get('/account/forget-password', [AccountController::class, 'forgetPassword'])->name('account.forgetPassword');
-Route::get('/account/order-history', [AccountController::class, 'orderHistory'])->name('account.orderHistory');
+Route::get('/account', [AccountController::class, 'index'])->middleware('auth')->name('home.account');
 // Logout

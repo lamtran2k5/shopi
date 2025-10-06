@@ -9,7 +9,6 @@ class Role extends Model
 {
     use HasFactory;
 
-    // Tên bảng, Laravel sẽ tự hiểu là "roles", nhưng khai báo rõ ràng cũng được
     protected $table = 'roles';
 
     // Các field có thể gán hàng loạt
