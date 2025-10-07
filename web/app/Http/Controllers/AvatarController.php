@@ -6,34 +6,17 @@ use Illuminate\Support\Str;
 
 
 
-class AccountController extends Controller
+class AvatarController extends Controller
 {
-    public function index(Request $request)
-    {       
-        $option = $request->query('option', '1');
-        switch ($option) {
-            case '1':
-                $contentView = 'account.account';
-                break;
-            case '2':
-                $contentView = 'account.info'; 
-                break;
-            case '3':
-                $contentView = 'account.forgetPasswd'; 
-                break;
-            case '4':
-                $contentView = 'account.address'; 
-                break; 
-            case '5':
-                $contentView = 'account.orderHistory'; 
-                break;
-            default:
-                abort(404);
-        }
+    public function index(){
+        return redirect()->route('account.avatar');
+    }
+    public function view()
+    {
+        $contentView = 'account.account';
         $viewData = [
             'title' => 'Account',
             'contentView' => $contentView,
-            'activeOption' => $option
         ];
         return view('home.account', $viewData);
     }
@@ -48,7 +31,7 @@ class AccountController extends Controller
             $parts = explode('.', $_FILES["fileToUpload"]["name"]);
             $ext = end($parts); // => "jpg"
 
-            $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+            $allowed = ['jpg', 'jpeg', 'png'];
             if($ext && !in_array($ext, $allowed)) {
                 return redirect()->back()->with('error', 'Chỉ nhận file JPG, JPEG, PNG.');
             }
@@ -64,12 +47,11 @@ class AccountController extends Controller
                 if ($user->background_image && file_exists($uploadPath . '/' . $user->background_image)) {
                     unlink($uploadPath . '/' . $user->background_image);
                 }       
-                $img_bg = $tagetImage;
-                $user->background_image = $img_bg;
+                $user->background_image = $tagetImage;
                 $user->save();
                 return redirect()->route('home.account');
             } else{
-            return redirect()->back()->with('error', 'Không có file nào được chọn.');
+            return redirect()->back()->with('error', 'Có lỗi khi upload file.');
             }
         } else {
             return redirect()->back()->with('error', 'Không có file nào được chọn.');

@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link active" href="{{ route('home.account') }}">{{ session('username') }}</a>
-                    <a class="nav-link" href="{{ url()->current() }}?logout=1">Logout</a>
+                    <a class="nav-link active" href="{{ url()->current() }}?logout=1">Logout</a>
                     <a class="nav-link active" href="{{ route('login.form') }}">Login</a>
                     <a class="nav-link active" href="{{ route('home.account') }}">Account</a>
                 </div>

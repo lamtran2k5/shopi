@@ -31,7 +31,5 @@
         @endif
         <input type="submit" value="Upload Image" name="submit" class="btn-upload">
     </form>
-
-    
 </body>
 </html>
