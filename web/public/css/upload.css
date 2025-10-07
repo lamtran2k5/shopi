@@ -38,12 +38,20 @@
 /* Input file */
 .file-input {
     display: block;
+    width: 90%;               /* ✅ chiếm 90% form */
+    max-width: 90%;
     margin: 0 auto 20px;
-    padding: 6px;
+    padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #fff;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
 }
+
 
 /* Nút Upload */
 .btn-upload {

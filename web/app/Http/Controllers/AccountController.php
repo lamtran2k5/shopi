@@ -61,6 +61,9 @@ class AccountController extends Controller
             if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $uploadPath ."/".$tagetImage)){
                 $userId = session('user_id');
                 $user = $userId ? User::find($userId) : null;
+                if ($user->background_image && file_exists($uploadPath . '/' . $user->background_image)) {
+                    unlink($uploadPath . '/' . $user->background_image);
+                }       
                 $img_bg = $tagetImage;
                 $user->background_image = $img_bg;
                 $user->save();
