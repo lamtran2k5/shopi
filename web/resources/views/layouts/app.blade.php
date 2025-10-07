@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    @php 
+        if(request()->has('logout')){
+            session()->flush(); // hủy toàn bộ 
+        }
+    @endphp
     <!-- header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
         <div class="container">
@@ -22,8 +27,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
+                    <a class="nav-link active" href="{{ route('home.account') }}">{{ session('username') }}</a>
+                    <a class="nav-link" href="{{ url()->current() }}?logout=1">Logout</a>
                     <a class="nav-link active" href="{{ route('login.form') }}">Login</a>
-                    <a class="nav-link active" href="{{ route('home.about') }}">About</a>
+                    <a class="nav-link active" href="{{ route('home.account') }}">Account</a>
                 </div>
             </div>
         </div>

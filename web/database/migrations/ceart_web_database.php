@@ -34,6 +34,7 @@ return new class extends Migration{
             $table->string('address')->nullable();
             $table->boolean('sex')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('background_image')->nullable();
             $table->unsignedBigInteger('role_id'); // khóa ngoại
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();

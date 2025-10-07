@@ -18,4 +18,6 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 // Account
 Route::get('/account', [AccountController::class, 'index'])->middleware('auth')->name('home.account');
+Route::post('/account', [AccountController::class, 'upload'])->name('account.upload');
+
 // Logout
