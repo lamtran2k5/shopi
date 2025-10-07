@@ -9,7 +9,7 @@
     <div class="container">
         <div class="sidebar">
             <a class="" href="{{ route('account.avatar') }}">Avatar</a>
-            <a class="" href="{{ route('home.account') }}">Info</a>
+            <a class="" href="{{ route('account.info') }}">Info</a>
             <a class="" href="{{ route('home.account') }}">Address</a>
             <a class="" href="{{ route('account.changePasswd') }}">Change Password</a>
             <a class="" href="{{ route('home.account') }}">Order History</a>

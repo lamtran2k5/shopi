@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\ChangePasswdController;
+use App\Http\Controllers\InfoController;
 
 // Trang Home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -19,7 +20,9 @@ Route::get('/account', [AvatarController::class, 'index'])->middleware('auth')->
 //Avatar
 Route::get('/account/Avatar', [AvatarController::class, 'view'])->name('account.avatar')->middleware('auth');
 Route::post('/account/Avatar', [AvatarController::class, 'upload'])->name('account.upavatar');
-
+// Change Password
 Route::get('/account/ChangePasswd', [ChangePasswdController::class, 'view'])->name('account.changePasswd')->middleware('auth');
 Route::post('/account/ChangePasswd', [ChangePasswdController::class, 'changepasswd'])->name('account.upchangePasswd');
-// Logout
+// info
+Route::get('/account/info', [InfoController::class, 'view'])->name('account.info')->middleware('auth');
+Route::post('/account/info', [InfoController::class, 'changeinfo'])->name('account.upinfo');

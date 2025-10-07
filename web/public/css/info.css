@@ -1,0 +1,105 @@
+/* Tổng thể form */
+.edit-form-container {
+    width: 360px;
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+}
+
+/* Tiêu đề */
+.edit-form-container h2 {
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Thông báo success */
+.success {
+    color: #28a745;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Label */
+.edit-form-container label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Input và select */
+.edit-form-container input,
+.edit-form-container select {
+    display: block;
+    width: 92%;
+    margin: 0 auto 20px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-form-container input:focus,
+.edit-form-container select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    outline: none;
+}
+
+/* Nút submit */
+.edit-form-container button {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-form-container button:hover {
+    background-color: #0056b3;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* khoảng cách giữa label và radio group */
+    margin-bottom: 20px;
+}
+
+.form-row label:first-child {
+    min-width: 80px; /* căn label cố định */
+    text-align: left;
+    font-weight: 500;
+    color: #333;
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px; /* khoảng cách giữa 2 radio */
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 6px;
+    accent-color: #007bff; /* màu radio */
+}
+
