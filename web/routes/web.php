@@ -9,6 +9,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PaymentHistoryController;
 
 // Trang Home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -34,6 +35,8 @@ Route::get('/product/{id}', [ProductController::class, 'view'])->name('product.d
 // Wallet
 Route::get('/account/Wallet', [WalletController::class, 'view'])->name('account.wallet');
 Route::post('/account/Wallet', [WalletController::class, 'upwallet'])->name('account.wallet');
+// Payment history
+Route::get('/account/PaymentHistory', [PaymentHistoryController::class, 'index'])->name('account.paymenthistory');
 // Admin
 Route::get('/admin', [AdminController::class, 'index'])->name('home.admin');
 // Logout

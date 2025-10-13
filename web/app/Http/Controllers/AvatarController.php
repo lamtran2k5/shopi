@@ -15,7 +15,7 @@ class AvatarController extends Controller
     {
         $contentView = 'account.account';
         $viewData = [
-            'title' => 'Account',
+            'title' => 'Avatar',
             'contentView' => $contentView,
         ];
         return view('home.account', $viewData);

@@ -48,6 +48,15 @@ return new class extends Migration{
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create('payment_history', function (Blueprint $table) {
+            $table->id();
+            $table->string('wallet_number', 9);
+            $table->decimal('amount', 18, 2);
+            $table->timestamp('transaction_date')->useCurrent();
+            $table->foreign('wallet_number')->references('wallet_number')->on('wallet')->onDelete('cascade');    
+            $table->timestamps();        
+        });
     }
 
     public function down(): void {
@@ -56,5 +65,6 @@ return new class extends Migration{
         Schema::dropIfExists('wallet');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('payment_history');
     }
 };

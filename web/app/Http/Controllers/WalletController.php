@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Wallet;
+use App\Models\PaymentHistory;
 
 
 class WalletController extends Controller
@@ -13,7 +13,7 @@ class WalletController extends Controller
         $user = User::find($userId);
         $contentView = 'account.wallet';
         $viewData = [
-            'title' => 'Info',
+            'title' => 'Wallet',
             'contentView' => $contentView,
             'user' => $user
         ];
@@ -29,6 +29,11 @@ class WalletController extends Controller
         $user->wallet->wallet_balance += $amount;
         $user->wallet->save();
 
+        $walletNumber = $user->wallet->wallet_number;
+        PaymentHistory::create([
+            'wallet_number' => $walletNumber,
+            'amount' => $amount,
+        ]);
         return redirect()->route('account.wallet')->with('success', 'Nạp tiền thành công!');
     }
 }

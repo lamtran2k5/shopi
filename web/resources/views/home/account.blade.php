@@ -12,7 +12,7 @@
         <a class="{{ request()->routeIs('account.info') ? 'active' : '' }}" href="{{ route('account.info') }}">Info</a>
         <a class="{{ request()->routeIs('account.wallet') ? 'active' : '' }}" href="{{ route('account.wallet') }}">Wallet</a>
         <a class="{{ request()->routeIs('account.changePasswd') ? 'active' : '' }}" href="{{ route('account.changePasswd') }}">Change Password</a>
-        <a class="{{ request()->routeIs('home.account') ? 'active' : '' }}" href="{{ route('home.account') }}">Order History</a>
+        <a class="{{ request()->routeIs('account.paymenthistory') ? 'active' : '' }}" href="{{ route('account.paymenthistory') }}">Payment History</a>
     </div>
 
     <div class="content">
