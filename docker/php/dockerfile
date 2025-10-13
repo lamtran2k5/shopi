@@ -1,0 +1,24 @@
+# docker/php-fpm/Dockerfile
+FROM php:8.4-fpm
+
+# Cài các extension cần thiết
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libzip-dev libonig-dev libxml2-dev zip unzip \
+    libicu-dev libcurl4-openssl-dev libssl-dev \
+    libpq-dev postgresql-client \
+    && docker-php-ext-install pdo_mysql pdo_pgsql intl zip bcmath soap opcache \
+    && pecl install redis xdebug \
+    && docker-php-ext-enable redis xdebug \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN echo "upload_max_filesize=50M" > /usr/local/etc/php/conf.d/uploads.ini \
+ && echo "post_max_size=50M" >> /usr/local/etc/php/conf.d/uploads.insi
+
+
+WORKDIR /var/www/html
+
+# Cài Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+
+
