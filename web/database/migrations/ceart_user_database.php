@@ -44,8 +44,8 @@ return new class extends Migration{
             $table->string('wallet_number')->nullable();
             $table->unsignedBigInteger('cart_id')->nullable();
             $table->foreign('wallet_number')->references('wallet_number')->on('wallet')->onDelete('cascade');
-            #$table->foreign('cart_id')->references('id')->on('cart')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            #$table->foreign('cart_id')->references('id')->on('cart')->onDelete('cascade');
             $table->timestamps();
         });
 

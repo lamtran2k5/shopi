@@ -11,16 +11,11 @@
         use App\Models\User;
         $userId = session('user_id');
         $user = $userId ? User::find($userId) : null;
-        if ($user && $user->background_image) {
-            $bg = '/upload/' . $user->background_image;
-        } else {
-            $bg = '/img/default.png';
-        }
     @endphp
     <form action="" method="post" enctype="multipart/form-data" class="upload-form">
         @csrf
         <div class="avatar">
-            <img src="{{ asset($bg) }}" alt="Avatar">
+            <img src="{{ asset($user->background_image) }}" alt="Avatar">
         </div>
         <label for="fileToUpload" class="upload-label">Select image to upload:</label>
         <input type="file" name="fileToUpload" id="fileToUpload" class="file-input">

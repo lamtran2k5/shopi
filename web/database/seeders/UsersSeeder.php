@@ -31,6 +31,7 @@ class UsersSeeder extends Seeder
                 'sdt'       => '0123456789',
                 'address'   => 'Hanoi, Vietnam',
                 'sex'       => 1,
+                'background_image' => '/img/avatar.png',
                 'wallet_number' => '999999999',
                 'is_active' => true,
                 'role_id'   => $adminRole->id
@@ -47,6 +48,7 @@ class UsersSeeder extends Seeder
                 'sdt'       => '0987654321',
                 'address'   => 'HCM, Vietnam',
                 'sex'       => 1,
+                'background_image' => '/img/avatar.png',
                 'wallet_number' => '999999999',
                 'is_active' => true,
                 'role_id'   => $shopRole->id
@@ -63,6 +65,7 @@ class UsersSeeder extends Seeder
                 'sdt'       => '0123987654',
                 'address'   => 'Da Nang, Vietnam',
                 'sex'       => 0,
+                'background_image' => '/img/avatar.png',
                 'is_active' => true,
                 'role_id'   => $userRole->id
             ]
@@ -77,6 +80,7 @@ class UsersSeeder extends Seeder
                 'sdt'       => '0987123456',
                 'address'   => 'Hai Phong, Vietnam',
                 'sex'       => 0,
+                'background_image' => '/img/avatar.png',
                 'is_active' => true,
                 'role_id'   => $userRole->id
             ]

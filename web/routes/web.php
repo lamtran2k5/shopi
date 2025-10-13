@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PaymentHistoryController;
+use App\Http\Controllers\OrderHistoryController;
 
 // Trang Home
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -39,7 +40,8 @@ Route::post('/account/Wallet', [WalletController::class, 'upwallet'])->name('acc
 Route::get('/account/PaymentHistory', [PaymentHistoryController::class, 'index'])->name('account.paymenthistory');
 // Admin
 Route::get('/admin', [AdminController::class, 'index'])->name('home.admin');
-// Logout
+// Order history
+Route::get('/account/OrderHistory', [OrderHistoryController::class, 'index'])->name('account.orderhistory');
 
 
 

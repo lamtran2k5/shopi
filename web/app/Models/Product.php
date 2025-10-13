@@ -19,4 +19,10 @@ class Product extends Model
         'image',
         'price',
     ];
+
+    // Quan hệ với User (Shop)
+    public function shop()
+    {
+        return $this->belongsTo(User::class, 'shop_id');
+    }
 }

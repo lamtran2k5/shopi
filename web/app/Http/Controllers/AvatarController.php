@@ -46,7 +46,8 @@ class AvatarController extends Controller
                 $user = $userId ? User::find($userId) : null;
                 if ($user->background_image && file_exists($uploadPath . '/' . $user->background_image)) {
                     unlink($uploadPath . '/' . $user->background_image);
-                }       
+                }    
+                $tagetImage = 'upload/' . $tagetImage;   
                 $user->background_image = $tagetImage;
                 $user->save();
                 return redirect()->route('home.account');

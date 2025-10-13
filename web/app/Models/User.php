@@ -52,4 +52,8 @@ class User extends Model
     {
         return $this->belongsTo(Wallet::class, 'wallet_number', 'wallet_number');
     }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id'); // 1 shop có nhiều product
+    }
 }
