@@ -49,7 +49,7 @@ class UsersSeeder extends Seeder
                 'address'   => 'HCM, Vietnam',
                 'sex'       => 1,
                 'background_image' => '/img/avatar.png',
-                'wallet_number' => '999999999',
+                'wallet_number' => '123456789',
                 'is_active' => true,
                 'role_id'   => $shopRole->id
             ]

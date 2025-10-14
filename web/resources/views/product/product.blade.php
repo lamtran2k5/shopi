@@ -1,16 +1,6 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
-@php 
-    use App\Models\User;
-    $userId = session('$shop->id');
-    $user = $userId ? User::find($userId) : null;
-    if ($user && $user->background_image) {
-        $bg = '/upload/' . $user->background_image;
-    } else {
-        $bg = '/img/avatar.png';
-    }
-@endphp
 <div class="row g-0">
     <div class="col-md-4">
         <img src="{{ asset('/img/'.$product->image) }}" class="img-fluid rounded-start" id="product-img">
@@ -25,14 +15,14 @@
 
         {{-- 2 nút bấm --}}
         <div class="d-flex gap-3 mt-auto ms-3">
-            <form action="#" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
-            </form>
-            <form action="#" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success">Buy Now</button>
-            </form>
+            <a href="{{ route('order.orderdetail', ['product' => $product->id]) }}" 
+            class="btn btn-success">
+                Add Cart
+            </a>
+            <a href="{{ route('order.orderdetail', ['product' => $product->id]) }}" 
+            class="btn btn-success">
+                Buy Now
+            </a>
         </div>
     </div>
 </div>
