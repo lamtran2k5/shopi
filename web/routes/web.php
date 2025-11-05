@@ -1,52 +1,85 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\ChangePasswdController;
-use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\WalletController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PaymentHistoryController;
-use App\Http\Controllers\OrderHistoryController;
-use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Profile\AvatarController;
+use App\Http\Controllers\Profile\ChangePasswdController;
+use App\Http\Controllers\Profile\InfoController;
+use Illuminate\Support\Facades\Route;
 
-// Trang Home
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-// Login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-// Register
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
-Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
-// Account
-Route::get('/account', [AvatarController::class, 'index'])->middleware('auth')->name('home.account');
-//Avatar
-Route::get('/account/Avatar', [AvatarController::class, 'view'])->name('account.avatar')->middleware('auth');
-Route::post('/account/Avatar', [AvatarController::class, 'upload'])->name('account.upavatar');
-// Change Password
-Route::get('/account/ChangePasswd', [ChangePasswdController::class, 'view'])->name('account.changePasswd')->middleware('auth');
-Route::post('/account/ChangePasswd', [ChangePasswdController::class, 'changepasswd'])->name('account.upchangePasswd');
-// info
-Route::get('/account/info', [InfoController::class, 'view'])->name('account.info')->middleware('auth');
-Route::post('/account/info', [InfoController::class, 'changeinfo'])->name('account.upinfo');
-// Product 
-Route::get('/product/{id}', [ProductController::class, 'view'])->name('product.detail');
-// Wallet
-Route::get('/account/Wallet', [WalletController::class, 'view'])->name('account.wallet');
-Route::post('/account/Wallet', [WalletController::class, 'upwallet'])->name('account.wallet');
-// Payment history
-Route::get('/account/PaymentHistory', [PaymentHistoryController::class, 'index'])->name('account.paymenthistory');
-// Admin
-Route::get('/admin', [AdminController::class, 'index'])->name('home.admin');
-// Order detail
-Route::get('/OrderDetail/{product}', [OrderDetailController::class, 'index'])->name('order.orderdetail');
-Route::post('/OrderDetail/payment', [OrderDetailController::class, 'payment'])->name('order.payment');
-// Order history
-Route::get('/account/OrderHistory', [OrderHistoryController::class, 'index'])->name('account.orderhistory');
-// Logout
+// Frontend Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Products
+Route::prefix('products')->name('products.')->group(function() {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/{slug}', [ProductController::class, 'show'])->name('show');
+});
 
+// Category
+Route::get('/category/{slug}', [ProductController::class, 'category'])->name('category');
 
+// Cart (Guest + Authenticated)
+Route::prefix('cart')->name('cart.')->group(function() {
+    Route::get('/', [CartController::class, 'index'])->name('index');
+    Route::post('/add/{product}', [CartController::class, 'add'])->name('add');
+    Route::patch('/update/{id}', [CartController::class, 'update'])->name('update');
+    Route::delete('/remove/{id}', [CartController::class, 'remove'])->name('remove');
+    Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
+});
+
+// Authenticated User Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/avatar', [AvatarController::class, 'view'])->name('profile.avatar');
+    Route::post('/profile/avatar', [AvatarController::class, 'upload'])->name('profile.upavatar');
+
+    Route::get('/account/changePasswd', [ChangePasswdController::class, 'view'])->name('profile.changePasswd');
+    Route::post('/account/changePasswd', [ChangePasswdController::class, 'changepasswd'])->name('profile.upchangePasswd');
+
+    Route::get('/account/info', [InfoController::class, 'view'])->name('profile.info');
+    Route::post('/account/info', [InfoController::class, 'changeinfo'])->name('profile.upinfo');
+
+    // Checkout & Orders
+    Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('orders.my');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+});
+
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'admin'])
+    ->group(function () {
+        // Redirect /admin → dashboard
+        Route::get('/', function () {
+            return redirect()->route('admin.dashboard');
+        });
+
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Products Management
+        Route::resource('products', AdminProductController::class);
+
+        // Orders Management
+        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+        Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
+        // Categories Management
+        Route::resource('categories', AdminCategoryController::class);
+
+        // Users Management
+        Route::resource('users', AdminUserController::class);
+    });
+
+require __DIR__.'/auth.php';

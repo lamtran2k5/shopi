@@ -1,29 +1,30 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
-        $viewData = [];
-        $viewData["title"] = "Home Page - Online Store";
-        $viewData["product"] = $product;
-        return view('home.index')->with("viewData", $viewData);
-    }
+        // Get featured products
+        $featuredProducts = Product::where('is_featured', true)
+            ->where('is_active', true)
+            ->take(8)
+            ->get();
 
-    public function about()
-    {
-        $data1 = "About us - Online Store";
-        $data2 = "About us";
-        $description = "This is an about page ...";
-        $author = "Developed by: Your Name";
-        return view('home.about')
-            ->with("title", $data1)
-            ->with("subtitle", $data2)
-            ->with("description", $description)
-            ->with("author", $author);
+        // Get all categories
+        $categories = Category::where('is_active', true)->get();
+
+        // Get latest products
+        $latestProducts = Product::where('is_active', true)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        return view('home', compact('featuredProducts', 'categories', 'latestProducts'));
     }
 }
-

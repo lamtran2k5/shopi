@@ -1,16 +1,82 @@
- .bg-secondary{
-    background-color: #2c3e50 !important;
- }
- .copyright{
-    background-color: #1a252f;
- }
- .bg-primary{
-    background-color: #1abc9c !important;
- }
- nav{
-    font-weight: 700;
- }
- .img-card{
-    height: 18vw;
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --dark-color: #2d3436;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    height: 90px; /* hoặc 90px, tuỳ bạn */
+    display: flex;
+    align-items: center; /* căn giữa logo, avatar... */
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.user-menu {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px; /* khoảng cách giữa ảnh và chữ */
+    padding: 0 !important;
+}
+
+.navbar-avatar {
+    width: 50px; /* hơi to hơn 50 */
+    height: 50px;
+    border-radius: 50%;
     object-fit: cover;
- }
+    flex-shrink: 0;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0); /* tránh làm mờ do layer GPU */
+}
+
+
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #ff5252;
+    border-color: #ff5252;
+}
+
+.product-card {
+    transition: transform 0.3s;
+    border: 1px solid #eee;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,.1);
+}
+
+.badge-sale {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--dark-color);
+    color: white;
+    margin-top: 50px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary-color);
+}

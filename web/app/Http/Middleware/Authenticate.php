@@ -2,27 +2,16 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;
 
-
-
-class Authenticate
+class Authenticate extends Middleware
 {
     /**
-     * Handle an incoming request.
+     * Get the path the user should be redirected to when they are not authenticated.
      */
-    public function handle(Request $request, Closure $next)
+    protected function redirectTo(Request $request): ?string
     {
-        // Kiểm tra xem user đã login chưa
-        if (!session()->has('user_id')) {
-            // Chưa login → redirect về trang login
-            return redirect()->route('login.form');
-        }
-
-        // Đã login → cho request đi tiếp
-        return $next($request);
+        return $request->expectsJson() ? null : route('login');
     }
 }

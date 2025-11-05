@@ -1,62 +1,81 @@
-.container {
+.containerprofile {
   display: flex;
   flex-direction: row;
+  background: #f4f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
 }
-/* The side navigation menu */
+
+/* Sidebar */
 .sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #f1f1f1;
-  position: sticky; 
-  overflow-y: auto;
-  height: 100%;
-  overflow: auto;
-  top: 0;  /* dính ở đầu viewport */
+  width: 220px;
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 20px 0 20px 120px;
+  padding: 10px 0;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 20px;
 }
 
 /* Sidebar links */
 .sidebar a {
   display: block;
-  color: black;
-  padding: 16px;
+  padding: 14px 20px;
+  margin: 6px 10px;
+  border-radius: 10px;
   text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: 0.25s ease;
 }
 
-/* Active/current link */
 .sidebar a.active {
-  background-color: #04AA6D;
-  color: white;
+  background: #007bff;
+  color: #fff;
+  box-shadow: 0px 3px 10px rgba(0, 123, 255, 0.4);
 }
 
-/* Links on mouse-over */
 .sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
+  background: #e9f0fb;
+  color: #007bff;
+  transform: translateX(6px);
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+/* Content */
 .content {
   flex: 1;
-  padding: 16px;
-  display: block;
+  margin: 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
-    height: auto;
+    margin-left: 0;
+    top: 0;
     position: relative;
+    border-radius: 0;
   }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
+  .content {
+    margin: 10px;
+  }
 }
 
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
 @media screen and (max-width: 400px) {
   .sidebar a {
     text-align: center;
-    float: none;
+    margin: 4px;
   }
 }

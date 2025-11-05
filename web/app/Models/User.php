@@ -2,58 +2,72 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    // Tên bảng, nếu không Laravel sẽ tự hiểu là "web_users"
-    protected $table = 'users';
-
-    // Các field có thể gán giá trị hàng loạt
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'full_name',
-        'username',
-        'password',
+        'name',
         'email',
-        'sdt',
+        'password',
+        'role',
+        'phone',
         'address',
-        'sex',
-        'wallet_number',
-        'is_active',
     ];
 
-    // Các field sẽ bị ẩn khi trả về JSON
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
     protected $hidden = [
-        'password'
+        'password',
+        'remember_token',
     ];
 
-    // Ép kiểu dữ liệu
-    protected $casts = [
-        'sex' => 'boolean',
-        'is_active' => 'boolean',
-    ];
-
-    // Mutator để tự động hash password khi tạo hoặc cập nhật
-    public function setPasswordAttribute($value)
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        $this->attributes['password'] = Hash::make($value);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 
-    // Relationship: một user thuộc về một role
-    public function role()
+    // Relationship: User has many Orders
+    public function orders()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasMany(Order::class);
     }
-    public function wallet()
+
+    public function cart()
     {
-        return $this->belongsTo(Wallet::class, 'wallet_number', 'wallet_number');
+        return $this->hasOne(\App\Models\Cart::class, 'user_id', 'id');
     }
-    public function products()
+
+    // Check if user is admin
+    public function isAdmin()
     {
-        return $this->hasMany(Product::class, 'id'); // 1 shop có nhiều product
+        return $this->role === 'admin';
+    }
+
+    // Check if user is regular user
+    public function isUser()
+    {
+        return $this->role === 'user';
     }
 }
