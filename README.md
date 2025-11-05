@@ -15,6 +15,7 @@ This is an e-commerce website developed using PHP Laravel, featuring both a shop
 - [Product](#product)
 - [Cart](#cart)
 - [Order](#order)
+- [Order detail](#order-detail)
 - [Admin](#admin)
 
 ---
@@ -41,6 +42,10 @@ This is an e-commerce website developed using PHP Laravel, featuring both a shop
 
 <h4 id="order">Order</h4>
 <img width="1909" height="867" alt="Order Screenshot" src="https://github.com/user-attachments/assets/6fbb3ca9-4266-4b66-9998-df5f7659663c" />
+
+---
+<h4 id="order-detail">Order Detail</h4>
+<img width="1919" height="862" alt="Screenshot 2025-11-05 121047" src="https://github.com/user-attachments/assets/0ab4e549-add5-4040-8692-89a180dac6b0" />
 
 ---
 
