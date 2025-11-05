@@ -1,4 +1,4 @@
-     ## How to run this project
+## How to run this project
 - docker compose up --build
 - docker compose exec php-fpm sh  
      composer install
