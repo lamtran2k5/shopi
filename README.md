@@ -7,7 +7,7 @@
 - docker compose exec php-fpm php artisan migrate --seed
 
 ## About project 
-This is an e-commerce website developed using PHP Laravel, featuring both a shopping system for customers and an admin management dashboard for store owners.
+This is an e‑commerce website developed using PHP Laravel, featuring both a shopping system for customers and an admin management dashboard for store owners. To enhance security, the application is deployed behind an Nginx Web Application Firewall (WAF) powered by ModSecurity with the OWASP Core Rule Set (CRS). This setup helps protect against common web attacks such as SQL injection, cross‑site scripting (XSS), and path traversal, ensuring safer transactions and a more resilient platform
 
 ### Sections
 - [Home](#home)
